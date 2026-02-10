@@ -1,15 +1,17 @@
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useMemo, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import DashboardLayout from "./layout/DashboardLayout";
+import DashboardHome from "./pages/DashboardHome";
+import Profile from "./pages/Profile";
+import Setting from "./pages/Setting";
 
 
 
@@ -110,6 +112,51 @@ function HomePage({ handleSearch, query, results, styles }) {
     </>
   );
 }
+  {/*-------------wrapper component for the navbar---------*/}
+function AppContent({ handleSearch, query, results, styles }) {
+  const location = useLocation();
+
+  return (
+    <>
+      {/* ✅ show navbar only on home */}
+      {location.pathname === "/" && (
+        <Navbar onSearch={handleSearch} />
+      )}
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              handleSearch={handleSearch}
+              query={query}
+              results={results}
+              styles={styles}
+            />
+          }
+        />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<DashboardHome />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="setting" element={<Setting />} />
+        </Route>
+      </Routes>
+
+      {/* footer optional */}
+      {location.pathname === "/" && <Footer />}
+    </>
+  );
+}
+
+
+
+
+
 
 /* ---------------- MAIN APP ---------------- */
 function App() {
@@ -188,29 +235,15 @@ function App() {
 
 return (
   <BrowserRouter>
-    <Navbar onSearch={handleSearch} />
-
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <HomePage
-            handleSearch={handleSearch}
-            query={query}
-            results={results}
-            styles={styles}
-          />
-        }
-      />
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup/>}/>
-    </Routes>
-
-    <Footer />
+    <AppContent
+      handleSearch={handleSearch}
+      query={query}
+      results={results}
+      styles={styles}
+    />
   </BrowserRouter>
 );
+
 
 }
 
