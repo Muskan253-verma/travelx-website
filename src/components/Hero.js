@@ -9,7 +9,7 @@ function Hero() {
     <section id="home"className="hero">
       <div className="hero-text">
         <h1>
-          LIFE IS SHORT <br />  TRAVEL MORE ✈️<br />
+          LIFE IS SHORT <br /> AND THE WORLD <br /> IS WIDE
         </h1>
 
         <p>
