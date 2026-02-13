@@ -1,13 +1,14 @@
 import { useState } from "react";
 import "./Signup.css";
+import { withSwal } from "react-sweetalert2";
 
-function Signup() {
+function Signup(props) {
+  const { swal } = props;
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
-  const [errors, setErrors] = useState({});
-  const [success, setSuccess] = useState("");
 
   const validate = () => {
     let newErrors = {};
@@ -36,14 +37,21 @@ function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const validationErrors = validate();
+    const errors = validate();
 
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      setSuccess("");
+    if (Object.keys(errors).length > 0) {
+      swal.fire({
+        title: "Error",
+        text: "Please fill all fields correctly",
+        icon: "error",
+      });
     } else {
-      setErrors({});
-      setSuccess("Account Created Successfully 🎉");
+      swal.fire({
+        title: "Success",
+        text: "Account Created Successfully 🎉",
+        icon: "success",
+      });
+
       setName("");
       setEmail("");
       setPassword("");
@@ -64,7 +72,6 @@ function Signup() {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          {errors.name && <p className="error">{errors.name}</p>}
 
           <input
             type="text"
@@ -72,7 +79,6 @@ function Signup() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {errors.email && <p className="error">{errors.email}</p>}
 
           <input
             type="password"
@@ -80,7 +86,6 @@ function Signup() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {errors.password && <p className="error">{errors.password}</p>}
 
           <input
             type="password"
@@ -88,18 +93,16 @@ function Signup() {
             value={confirm}
             onChange={(e) => setConfirm(e.target.value)}
           />
-          {errors.confirm && <p className="error">{errors.confirm}</p>}
 
           <button type="submit">Sign Up</button>
-<p>
-  Already have an account? <a href="/login">Login</a>
-</p>
 
-          {success && <p className="success">{success}</p>}
+          <p>
+            Already have an account? <a href="/login">Login</a>
+          </p>
         </form>
       </div>
     </section>
   );
 }
 
-export default Signup;
+export default withSwal(Signup);

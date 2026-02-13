@@ -1,17 +1,17 @@
 import "./Login.css";
 import { useState } from "react";
+import { withSwal } from "react-sweetalert2";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
-
+function Login(props) {
+  const { swal, setIsLoggedIn } = props; // make sure App passes setIsLoggedIn
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
-  const [success, setSuccess] = useState("");
 
   const validate = () => {
     let newErrors = {};
-
     if (!email) {
       newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
@@ -27,51 +27,65 @@ function Login() {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    const validationErrors = validate();
+    //  Check Validation
+    const errors = validate();
+    if (Object.keys(errors).length > 0) {
+      swal.fire({
+        title: "Error",
+        text: Object.values(errors).join(", "),
+        icon: "error",
+      });
+      return;
+    }
 
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      setSuccess("");
+    //  credentials check 
+    if (email.trim().toLowerCase() === "test@gmail.com" && password === "123456") {
+      setIsLoggedIn(true); // passed from App
+      swal.fire({
+        title: "Success",
+        text: "Login Successful 🎉",
+        icon: "success",
+      }).then(() => {
+        navigate("/dashboard"); // redirect after success
+      });
     } else {
-      setErrors({});
-      setSuccess("Login Successful ✅");
+      swal.fire({
+        icon: "error",
+        title: "Invalid credentials",
+      });
     }
   };
 
   return (
     <section className="login">
-  <div className="login-card">
-    <h2>Welcome Back</h2>
-    <p>Please login to continue</p>
+      <div className="login-card">
+        <h2>Welcome Back</h2>
+        <p>Please login to continue</p>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Enter Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {errors.email && <p className="error">{errors.email}</p>}
-
-        <input
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {errors.password && <p className="error">{errors.password}</p>}
-
-        <button type="submit">Login</button>
-
-        {success && <p className="success">{success}</p>}
-      </form>
+        <form onSubmit={handleLogin}>
+          <input
+            type="text"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Login</button>
+          <p>
+            Don’t have an account? <a href="/signup">Sign up</a>
+          </p>
+        </form>
       </div>
     </section>
   );
-  
 }
 
-export default Login;
+export default withSwal(Login);

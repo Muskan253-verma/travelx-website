@@ -1,9 +1,66 @@
-.dashboard-layout {
+/* Full page */
+.dashboard {
   display: flex;
+  min-height: 100vh;
+ background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); /* gradient background */
+  font-family: 'Poppins', sans-serif;
+  color: white;
 }
 
-.main-content {
-  margin-left: 220px; /* same as sidebar width */
-  padding: 20px;
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  padding: 30px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.sidebar-logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+/* Links */
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   width: 100%;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  transition: 0.3s;
+  width: 100%;
+}
+
+.sidebar a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar a.active {
+  background: #fff;
+  color: #f5576c;
+  font-weight: bold;
+}
+
+/* Content area */
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+    margin-left: 70px;
+   transition: margin-left 0.3s;
+  background: transparent; /* keeps the pink gradient from parent */
+}
+
+.dashboard-content.sidebar-open {
+  margin-left: 250px; /* adjust according to Sidebar width */
 }

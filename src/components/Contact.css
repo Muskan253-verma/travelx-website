@@ -159,3 +159,28 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ================================================= */
+/* COLLAPSED MODE FIX                               */
+/* ================================================= */
+
+.sidebar.closed .sidebar-link {
+  justify-content: center;   /* center icon */
+  padding: 12px 0;
+}
+
+.sidebar.closed .sidebar-label {
+  display: none;             /* hide text */
+}
+
+.sidebar.closed .sidebar-brand {
+  justify-content: center;
+}
+
+.sidebar.closed .brand-text {
+  display: none;
+}
+
+.sidebar.closed .sidebar-footer {
+  display: none;
+}

@@ -1,12 +1,16 @@
 import { useState } from "react";
 import "./Hero.css";
-import heroImage from "../assets/hero.jpg";
+import heroImage from "../assets/girl.jpg";
+
+
 
 function Hero() {
   const [clicked, setClicked] = useState(false);
 
   return (
+    
     <section id="home"className="hero">
+     
       <div className="hero-text">
         <h1>
           LIFE IS SHORT <br /> AND THE WORLD <br /> IS WIDE

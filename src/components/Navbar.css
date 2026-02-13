@@ -95,3 +95,10 @@
 .search-btn:hover {
   background: #0056b3;
 }
+
+.dashboard-btn {
+  cursor: pointer;
+  margin-left: 15px;
+  font-size: 18px;
+}
+

@@ -51,3 +51,75 @@
   border-radius: 6px;
   color: white;
 }
+.dashboard {
+  display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px; /* full open width */
+  background: #111;
+  color: #fff;
+  overflow: hidden;
+  transition: width 0.3s; /* smooth toggle */
+}
+
+/* Closed state */
+.sidebar.closed {
+  width: 60px; /* only icons visible */
+}
+
+/* Sidebar header toggle button */
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: auto;
+}
+
+/* Navigation links */
+.sidebar-nav {
+  margin-top: 20px;
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.sidebar-link.active {
+  background: #444;
+}
+.sidebar-icon {
+  margin-right: 10px;
+}
+
+/* Sidebar footer */
+.sidebar-footer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* Main content */
+.dashboard-content {
+  flex: 1;
+  margin-left: 60px; /* collapsed sidebar */
+  padding: 20px;
+  transition: margin-left 0.3s;
+}
+
+/* Open sidebar pushes content */
+.dashboard-content.sidebar-open {
+  margin-left: 250px;
+}
